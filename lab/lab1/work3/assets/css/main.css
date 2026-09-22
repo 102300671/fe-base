@@ -1,0 +1,119 @@
+/* 唐诗宋词精选 - 共享样式 */
+
+body {
+  font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
+  color: #3a2f1f;
+  background-color: #f4ead5;
+  background-image:
+    radial-gradient(circle at 18% 28%, rgba(60,40,20,0.07) 0, transparent 38%),
+    radial-gradient(circle at 82% 72%, rgba(120,30,30,0.05) 0, transparent 35%),
+    radial-gradient(circle at 50% 100%, rgba(140,100,50,0.08) 0, transparent 50%),
+    repeating-linear-gradient(45deg, rgba(120,90,50,0.02) 0 2px, transparent 2px 7px),
+    repeating-linear-gradient(-45deg, rgba(120,90,50,0.02) 0 2px, transparent 2px 7px);
+  background-attachment: fixed;
+  margin: 0;
+  padding: 1.5rem 1rem 4rem;
+  line-height: 1.85;
+}
+
+.wrap { max-width: 760px; margin: 0 auto; }
+
+/* 标题 */
+h1 {
+  font-family: "KaiTi", "STKaiti", "Songti SC", serif;
+  color: #6b1a1a;
+  font-weight: normal;
+  letter-spacing: 0.15em;
+  text-align: center;
+  font-size: 2.4rem;
+  border-top: 2px double #6b1a1a;
+  border-bottom: 2px double #6b1a1a;
+  padding: 0.6rem 0;
+  margin: 0 0 1.2rem;
+}
+
+h2, h3 {
+  font-family: "KaiTi", "STKaiti", "Songti SC", serif;
+  color: #6b1a1a;
+  font-weight: normal;
+  letter-spacing: 0.08em;
+  border-left: 5px solid #b8915c;
+  padding-left: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+/* 分隔线与链接 */
+hr { border: none; border-top: 1px solid #b8915c; margin: 1.4rem 0; }
+a { color: #6b1a1a; text-decoration: none; border-bottom: 1px dotted #6b1a1a; }
+a:hover { background: rgba(178,34,34,0.12); }
+
+/* 段落 */
+p { text-indent: 2em; margin: 0.5em 0; }
+p.lead, p.nav-top, p.poet-name, p.anchors, footer p { text-indent: 0; }
+.nav-top { text-align: center; letter-spacing: 0.2em; }
+
+/* 印章式装饰 */
+.seal {
+  display: inline-block;
+  background: #b22222;
+  color: #fff;
+  font-family: "KaiTi", serif;
+  padding: 0.1em 0.4em;
+  margin-right: 0.5em;
+  letter-spacing: 0.1em;
+}
+
+/* 列表 */
+ol {
+  background: rgba(255,250,235,0.55);
+  padding: 1rem 2rem 1rem 2.5rem;
+  border-left: 4px solid #b8915c;
+  border-radius: 4px;
+  list-style: upper-roman;
+}
+ol > li { margin: 0.5rem 0; }
+ul {
+  list-style: "❖ " inside;
+  padding-left: 1.2rem;
+}
+ul li { margin: 0.25rem 0; }
+
+/* 二级页：顶部导航与菜单 */
+.topnav {
+  text-align: center;
+  border-bottom: 1px solid #b8915c;
+  padding-bottom: 0.6rem;
+  margin-bottom: 1rem;
+}
+.topnav a, .topnav span { margin: 0 0.4em; }
+
+ul.menu {
+  list-style: none;
+  padding: 0.5rem 1rem;
+  background: rgba(255,250,235,0.5);
+  border-left: 4px solid #b8915c;
+}
+ul.menu li { display: inline; margin-right: 1em; }
+
+/* 二级页：诗词锚记条 */
+.anchors {
+  text-align: center;
+  letter-spacing: 0.15em;
+  background: rgba(255,250,235,0.5);
+  padding: 0.5rem 0;
+  border: 1px dashed #b8915c;
+}
+.anchors a { margin: 0 0.4em; }
+
+/* 二级页：诗词正文 */
+.poet-name { text-align: right; color: #7a5a2e; font-size: 0.95em; }
+.poem p { text-align: center; letter-spacing: 0.08em; }
+
+/* 页脚 */
+footer {
+  text-align: center;
+  color: #7a5a2e;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+footer a { margin: 0 0.4em; }
