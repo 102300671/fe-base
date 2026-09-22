@@ -1,39 +1,54 @@
-# Chirpy Starter
+# fe-base
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+前端基础课程上机作业与练习的静态站点，基于 [Jekyll](https://jekyllrb.com/) 与 [Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy) 主题搭建。
 
-A minimal, ready-to-use template for creating a blog with the [**Chirpy**][chirpy] Jekyll theme. Get up and running in minutes with all critical files pre-configured.
+- 在线访问：<https://102300671.github.io/fe-base/>
+- 作业源码带语法高亮与行号，HTML 作业支持页面内「源码 / 预览」一键切换
 
-## Why This Starter Exists
+## 目录结构
 
-When installing Chirpy through [RubyGems.org][gem], Jekyll can only read a subset of theme files (`_data`, `_layouts`, `_includes`, `_sass`, `assets`) and limited `_config.yml` options from the gem. As a result, users cannot enjoy the full out-of-the-box experience that Chirpy offers.
-
-To unlock all features, the following files must be present in your Jekyll site:
-
-```shell
+```text
 .
-├── _config.yml
-├── _plugins
-├── _tabs
+├── _config.yml            # 站点配置
+├── _posts/                # 实验文章（每次实验一篇）
+├── _tabs/                 # 导航页：分类 / 标签 / 归档 / 关于
+├── _plugins/
+│   └── include_source.rb  # 自定义标签：嵌入文件源码 + 在线预览
+├── lab/                   # 作业源文件，按实验次数组织
+│   └── lab1/
+│       ├── work1/
+│       ├── work2/
+│       └── ...
 └── index.html
 ```
 
-This starter bundles those files from the latest **Chirpy** release along with a [CD][CD] workflow, so you can start writing immediately.
+## 在文章中嵌入作业
 
-## Usage
+使用自定义的 `include_source` 标签：
 
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
+```liquid
+{% include_source lab/lab1/work1/index.html %}
+```
 
-## Contributing
+- HTML / HTM 文件默认显示高亮源码，并附带「预览」按钮（iframe 加载该文件的渲染结果，离开预览时自动重置）
+- CSS / JS 等其他文件仅显示高亮源码
 
-This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
+可选参数：
 
-## License
+```liquid
+{% include_source path/to/file.html preview %}    # 默认展示预览
+{% include_source path/to/file.html nopreview %}  # 只显示源码，不显示预览
+```
 
-This work is published under [MIT][mit] License.
+## 本地运行
 
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+```shell
+bundle install
+bundle exec jekyll serve
+```
+
+然后访问 <http://localhost:4000/fe-base/>。
+
+## 许可
+
+本站内容与代码基于 [MIT License](LICENSE) 发布，Jekyll 主题 Chirpy 同样采用 MIT 许可。

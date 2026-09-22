@@ -16,10 +16,11 @@ timezone: Asia/Shanghai
 
 title: fe-base # the main title
 
-tagline: A text-focused Jekyll theme # it will display as the subtitle
+tagline: 前端基础 · 上机作业与练习 # it will be displayed as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  A minimal, responsive and feature-rich Jekyll theme for technical writing.
+  前端基础课程上机作业与练习合集，基于 Jekyll 与 Chirpy 主题搭建，
+  提供作业源码的语法高亮展示与 HTML 页面在线预览。
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
@@ -29,17 +30,16 @@ github:
   username: 102300671 # change to your GitHub username
 
 twitter:
-  username: twitter_username # change to your Twitter username
+  username: # change to your Twitter username
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: your_full_name
-  email: example@domain.com # change to your email address
+  name: 102300671
+  email: jy2193807541@gmail.com # change to your email address
   fediverse_handle: # fill in your fediverse handle. E.g. "@username@domain.com"
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/username # change to your Twitter homepage
     - https://github.com/102300671 # change to your GitHub homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username

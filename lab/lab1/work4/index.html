@@ -1,0 +1,62 @@
+---
+layout: null
+permalink: /lab/lab1/work4/
+---
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>work4</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>调查</h1>
+    <form name="survey" method="post" action="">
+        <p>
+            喜欢的品牌<input type="text" name="brand" />
+            产地
+            <select>
+                <option selected="selected">中国</option>
+                <option>美国</option>
+                <option>日本</option>
+            </select>
+        </p>
+        <p>
+            喜欢的原因
+            <input type="checkbox" value="1" name="appearance" />外观
+            <input type="checkbox" value="2" name="function" />功能
+            <input type="checkbox" value="3" name="price" />价格
+        </p>
+        <textarea cols="30" rows="9">其它原因…</textarea>
+        <p>
+            打分
+            <input type="radio" value="1" name="score" />1
+            <input type="radio" value="2" name="score" />2
+            <input type="radio" value="3" name="score" />3
+            <input type="radio" value="4" name="score" />4
+            <input type="radio" value="5" name="score" />5
+        </p>
+        <p>
+            <input type="submit" value="提交" />
+            <input type="reset" value="重置" />
+        </p>
+    </form>
+</body>
+</html>
