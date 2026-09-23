@@ -50,7 +50,7 @@ module Jekyll
       </style>
       <script>
         (function () {
-          if (window.__isrc_bound) return;   // 幂等：重复注入不重复绑定
+          if (window.__isrc_bound) return;   /* 幂等：重复注入不重复绑定 */
           window.__isrc_bound = true;
           document.addEventListener('click', function (e) {
             var btn = e.target.closest && e.target.closest('.isrc-tab');
@@ -59,7 +59,7 @@ module Jekyll
             if (!box) return;
             var view = btn.getAttribute('data-view');
             var previewPane = box.querySelector('.isrc-preview');
-            // 离开预览时把 iframe 重置回初始页，避免在预览里点链接跳走后回不来
+            /* 离开预览时把 iframe 重置回初始页，避免在预览里点链接跳走后回不来 */
             if (view === 'code' && previewPane && !previewPane.hidden) {
               box.querySelectorAll('.isrc-preview iframe').forEach(function (f) {
                 f.src = f.getAttribute('data-src');
