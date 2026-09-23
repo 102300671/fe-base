@@ -14,8 +14,8 @@
 ├── _tabs/                 # 导航页：分类 / 标签 / 归档 / 关于
 ├── _plugins/
 │   └── include_source.rb  # 自定义标签：嵌入文件源码 + 在线预览
-├── _includes/
-│   └── zip/lab1.zip       # 实验作业打包（zip）
+├── assets/
+│   └── zip/lab1.zip       # 实验作业打包（zip），构建时随站点发布
 ├── labs/                  # 作业源文件，按实验次数组织
 │   └── lab1/
 │       ├── work1/
