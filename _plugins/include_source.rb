@@ -1,9 +1,20 @@
 # frozen_string_literal: true
 require "rouge"
+require "cgi"
+require "uri"
 
 module Jekyll
+  # 从磁盘读取源文件，渲染为「源码 + 预览」双 tab 组件。
+  # 与 `_includes/` 不同，被包含文件保留在原始位置，file:// 可直接打开。
+  # 用法：
+  #   {% include_source labs/lab1/work1/index.html %}
+  #   {% include_source labs/lab1/work1/index.html preview %}   默认显示预览
+  #   {% include_source labs/lab1/work1/index.html nopreview %} 不显示 tab
   class IncludeSourceTag < Liquid::Tag
-    PREVIEW_EXTS = %w[.html .htm].freeze
+    PREVIEW_EXTS  = %w[.html .htm .xhtml].freeze
+    FRONT_MATTER  = /\A---\s*\r?\n.*?\r?\n---\s*\r?\n/m
+    ASSETS_FLAG   = "_include_source_assets"
+    ERR_PREFIX    = "include_source: "
 
     ASSETS = <<~HTML
       <style>
@@ -39,6 +50,8 @@ module Jekyll
       </style>
       <script>
         (function () {
+          if (window.__isrc_bound) return;   // 幂等：重复注入不重复绑定
+          window.__isrc_bound = true;
           document.addEventListener('click', function (e) {
             var btn = e.target.closest && e.target.closest('.isrc-tab');
             if (!btn) return;
@@ -53,7 +66,9 @@ module Jekyll
               });
             }
             box.querySelectorAll('.isrc-tab').forEach(function (t) {
-              t.classList.toggle('isrc-active', t === btn);
+              var on = t === btn;
+              t.classList.toggle('isrc-active', on);
+              t.setAttribute('aria-selected', on ? 'true' : 'false');
             });
             box.querySelectorAll('.isrc-pane').forEach(function (p) {
               p.hidden = !p.classList.contains('isrc-' + view);
@@ -65,93 +80,199 @@ module Jekyll
 
     def initialize(tag_name, markup, tokens)
       super
-      args = markup.strip.split(/\s+/)
-      @path = args.first.to_s
-      @opts = args[1..] || []
+      args  = markup.strip.split(/\s+/)
+      @path = args.shift.to_s
+      @opts = args.each_with_object({}) do |opt, h|
+        k, v = opt.split("=", 2)
+        h[k] = v || true
+      end
     end
 
     def render(context)
+      return err("missing path") if @path.empty?
+
       site = context.registers[:site]
-      full_path = File.join(site.source, @path)
-      return "<!-- include_source: #{@path} not found -->" unless File.exist?(full_path)
+      full = resolve(site)
+      return err("not found: #{@path}") unless full
 
-      content = File.read(full_path)
-      content = content.sub(/\A---\s*\r?\n.*?\r?\n---\s*\r?\n/m, "").rstrip
+      stack = (Thread.current[:isrc_stack] ||= [])
+      return err("circular: #{@path}") if stack.include?(full)
 
-      ext = File.extname(@path).downcase
-      lexer = rouge_lexer(ext)
-      table = Rouge::Formatters::HTMLTable.new(Rouge::Formatters::HTML.new).format(lexer.lex(content))
-      basename = File.basename(@path)
-
-      # 与 kramdown 输出一致，Chirpy 的 refactor-content 会自动补 code-header
-      code = <<~HTML
-        <div file="#{basename}" class="language-#{lexer.tag} highlighter-rouge"><div class="highlight"><code>#{table}</code></div></div>
-      HTML
-
-      previewable = PREVIEW_EXTS.include?(ext) && !@opts.include?("nopreview")
-      return code unless previewable
-
-      page = context.registers[:page] || {}
-      inject_assets = page["_include_source_assets"].nil?
-      page["_include_source_assets"] = true
-
-      url = preview_url(site, full_path)
-      default_preview = @opts.include?("preview")
-
-      <<~HTML
-        <div class="isrc">#{inject_assets ? ASSETS : ""}
-          <div class="isrc-tabs">
-            <button type="button" class="isrc-tab #{default_preview ? "" : "isrc-active"}" data-view="code">源码</button>
-            <button type="button" class="isrc-tab #{default_preview ? "isrc-active" : ""}" data-view="preview">预览</button>
-          </div>
-          <div class="isrc-pane isrc-code"#{default_preview ? " hidden" : ""}>#{code}</div>
-          <div class="isrc-pane isrc-preview"#{default_preview ? "" : " hidden"}><iframe src="#{url}" data-src="#{url}" loading="lazy" title="#{basename} 预览"></iframe></div>
-        </div>
-      HTML
+      stack.push(full)
+      begin
+        raw  = read_cached(site, full)
+        code = render_code(strip_front_matter(raw), full)
+        return code unless previewable?
+        render_preview(context, site, code, full)
+      rescue StandardError => e
+        err("#{e.class}: #{e.message}")
+      ensure
+        stack.pop
+      end
     end
 
     private
 
-    def rouge_lexer(ext)
-      Rouge::Lexer.find(ext.delete_prefix(".")) ||
-        begin
-          Rouge::Lexer.guess_by_filename(File.basename(@path))
-        rescue StandardError
-          Rouge::Lexers::PlainText
-        end
+    # ---------- 路径 ----------
+
+    def resolve(site)
+      full = File.expand_path(@path, site.source)
+      return nil unless File.file?(full)
+      return nil unless full.start_with?(site.source)
+      full
     end
 
-    # 优先从 site.pages 取最终 URL（尊重文件 front matter 中的 permalink），
-    # 取不到再按目录结构推导
-    def preview_url(site, full_path)
-      target = site.pages.find do |p|
-        p.respond_to?(:path) && (p.path == @path || p.relative_path == @path)
+    # ---------- 读取（mtime + size 缓存）----------
+
+    def read_cached(site, path)
+      stat = File.stat(path)
+      sig  = [stat.mtime.to_f, stat.size]
+
+      cache = site.instance_variable_get(:@isrc_files) ||
+              site.instance_variable_set(:@isrc_files, {})
+      entry = cache[path]
+      return entry[:content] if entry && entry[:sig] == sig
+
+      content = File.read(path, encoding: "UTF-8")
+      cache[path] = { sig: sig, content: content }
+      content
+    end
+
+    def strip_front_matter(content)
+      content.sub(FRONT_MATTER, "").rstrip
+    end
+
+    # ---------- 高亮 ----------
+
+    def render_code(content, path)
+      ext   = File.extname(path).downcase
+      lexer = find_lexer(ext, path, content)
+
+      formatter = Rouge::Formatters::HTMLTable.new(
+        Rouge::Formatters::HTML.new,
+        table_class:  "rouge-table",
+        gutter_class: "rouge-gutter gl",
+        code_class:   "rouge-code"
+      )
+      table = formatter.format(lexer.lex(content))
+      name  = CGI.escapeHTML(File.basename(path))
+
+      # 结构与 kramdown + rouge 的默认输出一致：
+      # <div class="language-x highlighter-rouge">
+      #   <div class="highlight">
+      #     <pre class="highlight"><code><table class="rouge-table">...</table></code></pre>
+      #   </div>
+      # </div>
+      %(<div file="#{name}" class="language-#{lexer.tag} highlighter-rouge">) +
+        %(<div class="highlight"><pre class="highlight"><code>#{table}</code></pre></div>) +
+        %(</div>)
+    end
+
+    def find_lexer(ext, path, content)
+      Rouge::Lexer.find(ext.delete_prefix(".")) ||
+        guess_lexer(path) ||
+        Rouge::Lexer.find_fancy("html", content) ||
+        Rouge::Lexers::PlainText
+    end
+
+    def guess_lexer(path)
+      result = Rouge::Lexer.guess_by_filename(File.basename(path))
+      result.is_a?(Array) ? result.first : result
+    rescue StandardError
+      nil
+    end
+
+    # ---------- 预览 ----------
+
+    def previewable?
+      PREVIEW_EXTS.include?(File.extname(@path).downcase) && !@opts.key?("nopreview")
+    end
+
+    def render_preview(context, site, code, full)
+      assets  = assets_for(context)
+      url     = CGI.escapeHTML(preview_url(site, full))
+      name    = CGI.escapeHTML(File.basename(full))
+      pv_first = @opts.key?("preview")
+
+      code_sel = pv_first ? "false" : "true"
+      pv_sel   = pv_first ? "true"  : "false"
+      code_cls = pv_first ? ""      : "isrc-active"
+      pv_cls   = pv_first ? "isrc-active" : ""
+      code_hid = pv_first ? " hidden" : ""
+      pv_hid   = pv_first ? "" : " hidden"
+
+      <<~HTML
+        <div class="isrc">#{assets}
+          <div class="isrc-tabs" role="tablist">
+            <button type="button" role="tab" aria-selected="#{code_sel}"
+                    class="isrc-tab #{code_cls}" data-view="code">源码</button>
+            <button type="button" role="tab" aria-selected="#{pv_sel}"
+                    class="isrc-tab #{pv_cls}" data-view="preview">预览</button>
+          </div>
+          <div class="isrc-pane isrc-code" role="tabpanel"#{code_hid}>#{code}</div>
+          <div class="isrc-pane isrc-preview" role="tabpanel"#{pv_hid}>
+            <iframe src="#{url}" data-src="#{url}" loading="lazy"
+                    sandbox="allow-scripts allow-same-origin"
+                    title="#{name} 预览"></iframe>
+          </div>
+        </div>
+      HTML
+    end
+
+    # 同一 page 只注入一次 ASSETS；写入失败则退化为每次注入（JS 幂等守护）
+    def assets_for(context)
+      page = context.registers[:page]
+      return ASSETS if page.nil?
+
+      already = begin
+        page[ASSETS_FLAG]
+      rescue StandardError
+        nil
       end
-      url = target ? target_url(target) : derived_url
+      return "" if already
+
+      begin
+        page[ASSETS_FLAG] = true
+      rescue StandardError
+        # 不支持写入就退化为每次注入
+      end
+      ASSETS
+    end
+
+    # ---------- URL 推导 ----------
+
+    # 在 site.pages 中（尊重 permalink）则用它；否则按静态路径直接拼。
+    # 这正是你的 labs/ 场景：无 front matter → 静态拷贝 → /<源路径>。
+    def preview_url(site, full)
+      rel    = full.sub(/\A#{Regexp.escape(site.source)}\/?/, "")
+      target = page_index(site)[rel]
+      url    = target ? target.url : "/#{rel}"
+      url    = encode_url(url) unless url.ascii_only?
       "#{site.baseurl.to_s.chomp("/")}/#{url.sub(%r{\A/}, "")}"
     end
 
-    # 目录式 permalink 下，只有 index.html 能被静态服务器当作目录索引；
-    # 源文件是 .htm/.xhtml 时产物为 index.xxx，需要显式拼出文件名
-    def target_url(target)
-      url = target.url
-      if url.end_with?("/")
-        ext = File.extname(target.path).downcase
-        url += "index#{ext}" unless ext == ".html"
+    # site.pages 建一次索引，避免每次线性查找
+    def page_index(site)
+      cached = site.instance_variable_get(:@isrc_pages)
+      return cached if cached
+
+      idx = {}
+      site.pages.each do |p|
+        idx[p.path]          = p if p.respond_to?(:path)
+        idx[p.relative_path] = p if p.respond_to?(:relative_path)
       end
-      url
+      site.instance_variable_set(:@isrc_pages, idx)
+      idx
     end
 
-    def derived_url
-      dir = File.dirname(@path)
-      base = File.basename(@path)
-      if base =~ /\Aindex\.(x?html?)\z/i
-        "/#{dir}/"
-      elsif base =~ /\.(x?html?)\z/i
-        "/#{dir}/#{File.basename(base, File.extname(base))}/"
-      else
-        "/#{@path}"
-      end
+    def encode_url(url)
+      url.split("/").map { |s| URI.encode_www_form_component(s).gsub("+", "%20") }.join("/")
+    end
+
+    # ---------- 错误输出 ----------
+
+    def err(msg)
+      "<!-- #{ERR_PREFIX}#{CGI.escapeHTML(msg)} -->"
     end
   end
 end

@@ -1,0 +1,25 @@
+/* 页面内容整体居中 */
+body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* 代码块与列表：整体居中显示，内部文本保持左对齐 */
+pre,
+ul,
+ol {
+    display: inline-block;
+    text-align: left;
+    margin: 10px auto;
+    list-style-position: inside;
+}
+
+/* 表单控件间距与垂直对齐 */
+input,
+select,
+textarea {
+    margin: 4px;
+    vertical-align: middle;
+}

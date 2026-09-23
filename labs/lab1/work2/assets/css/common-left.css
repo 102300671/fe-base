@@ -1,0 +1,16 @@
+
+/* 页面整体居中，内部内容保持原有左对齐布局 */
+body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: left;
+}
+
+/* 开头图片与标题横向排列：图片在左，标题与简介在右 */
+.head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 16px;
+}
