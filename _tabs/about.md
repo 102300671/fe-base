@@ -10,8 +10,8 @@ order: 4
 
 ## 内容组织
 
-- 实验文章位于 [`_posts/`](https://github.com/102300671/fe-base/tree/master/_posts)，按日期与实验编号命名
-- 作业源文件位于 [`lab/`](https://github.com/102300671/fe-base/tree/master/lab) 目录，按实验次数和作业序号组织
+- 实验文章位于 [`_posts/`](https://github.com/102300671/fe-base/tree/main/_posts)，按日期与实验编号命名
+- 作业源文件位于 [`labs/`](https://github.com/102300671/fe-base/tree/main/labs) 目录，按实验次数和作业序号组织
 - HTML 作业支持「**源码 / 预览**」一键切换：默认显示带行号的语法高亮源码，点击「预览」即可在页面内查看渲染效果
 - 文章可通过顶部的[分类](/fe-base/categories/)与[标签](/fe-base/tags/)页浏览，也可以在[归档](/fe-base/archives/)页按时间查看
 

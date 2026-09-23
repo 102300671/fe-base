@@ -14,7 +14,9 @@
 ├── _tabs/                 # 导航页：分类 / 标签 / 归档 / 关于
 ├── _plugins/
 │   └── include_source.rb  # 自定义标签：嵌入文件源码 + 在线预览
-├── lab/                   # 作业源文件，按实验次数组织
+├── _includes/
+│   └── zip/lab1.zip       # 实验作业打包（zip）
+├── labs/                  # 作业源文件，按实验次数组织
 │   └── lab1/
 │       ├── work1/
 │       ├── work2/
@@ -27,7 +29,7 @@
 使用自定义的 `include_source` 标签：
 
 ```liquid
-{% include_source lab/lab1/work1/index.html %}
+{% include_source labs/lab1/work1/index.html %}
 ```
 
 - HTML / HTM 文件默认显示高亮源码，并附带「预览」按钮（iframe 加载该文件的渲染结果，离开预览时自动重置）
