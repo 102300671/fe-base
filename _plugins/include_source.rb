@@ -10,6 +10,10 @@ module Jekyll
   #   {% include_source labs/lab1/work1/index.html %}
   #   {% include_source labs/lab1/work1/index.html preview %}   默认显示预览
   #   {% include_source labs/lab1/work1/index.html nopreview %} 不显示 tab
+  #   {% include_source labs/lab1/work1/ dir %}                        遍历目录，包含其下全部文件
+  #   {% include_source labs/lab1/work1/ dir ext=html,css,js %}         仅包含指定后缀（逗号分隔，. 可省略）
+  #   {% include_source labs/lab1/work1/ dir recursive ext=html %}      递归遍历子目录
+  #   目录模式下 preview / nopreview 对其中每个文件分别生效
   class IncludeSourceTag < Liquid::Tag
     PREVIEW_EXTS  = %w[.html .htm .xhtml].freeze
     FRONT_MATTER  = /\A---\s*\r?\n.*?\r?\n---\s*\r?\n/m
@@ -95,14 +99,23 @@ module Jekyll
       full = resolve(site)
       return err("not found: #{@path}") unless full
 
+      if File.directory?(full)
+        return err("is a directory: #{@path} (add 'dir' to traverse it)") unless directory_mode?
+        render_directory(context, site, full)
+      else
+        render_file(context, site, full)
+      end
+    end
+
+    def render_file(context, site, full, display_name: nil)
       stack = (Thread.current[:isrc_stack] ||= [])
-      return err("circular: #{@path}") if stack.include?(full)
+      return err("circular: #{display_name || @path}") if stack.include?(full)
 
       stack.push(full)
       begin
         raw  = read_cached(site, full)
-        code = render_code(strip_front_matter(raw), full)
-        return code unless previewable?
+        code = render_code(strip_front_matter(raw), full, display_name)
+        return code unless previewable?(full)
         render_preview(context, site, code, full)
       rescue StandardError => e
         err("#{e.class}: #{e.message}")
@@ -117,9 +130,51 @@ module Jekyll
 
     def resolve(site)
       full = File.expand_path(@path, site.source)
-      return nil unless File.file?(full)
       return nil unless full.start_with?(site.source)
+      return nil unless File.file?(full) || File.directory?(full)
       full
+    end
+
+    # ---------- 目录遍历 ----------
+
+    def directory_mode?
+      @opts.key?("dir")
+    end
+
+    def render_directory(context, site, dir)
+      files = collect_files(dir)
+      return err("no matching files in: #{@path}") if files.empty?
+
+      files.map do |f|
+        rel = f.sub(/\A#{Regexp.escape(dir)}\/?/, "")
+        render_file(context, site, f, display_name: rel)
+      end.join("\n")
+    end
+
+    # 按相对路径排序，保证多次构建输出稳定；隐藏文件/目录（. 开头）始终排除
+    def collect_files(dir)
+      paths = if @opts.key?("recursive")
+        Dir.glob(File.join(dir, "**", "*"))
+      else
+        Dir.children(dir).map { |name| File.join(dir, name) }
+      end
+
+      exts = allowed_extensions
+      paths.select do |f|
+        rel = f.sub(/\A#{Regexp.escape(dir)}\/?/, "")
+        next false unless File.file?(f)
+        next false if rel.split(File::SEPARATOR).any? { |seg| seg.start_with?(".") }
+        next false if exts && !exts.include?(File.extname(f).downcase)
+        true
+      end.sort_by { |f| f.delete_prefix(dir) }
+    end
+
+    # ext=html,css,.js → [".html", ".css", ".js"]；缺省或为空表示不过滤
+    def allowed_extensions
+      raw = @opts["ext"]
+      return nil if raw.nil? || raw.to_s.strip.empty?
+      raw.to_s.split(",").map { |s| ".#{s.strip.delete_prefix(".").downcase}" }
+         .reject { |ext| ext == "." }.uniq
     end
 
     # ---------- 读取（mtime + size 缓存）----------
@@ -144,7 +199,7 @@ module Jekyll
 
     # ---------- 高亮 ----------
 
-    def render_code(content, path)
+    def render_code(content, path, display_name = nil)
       ext   = File.extname(path).downcase
       lexer = find_lexer(ext, path, content)
 
@@ -155,7 +210,7 @@ module Jekyll
         code_class:   "rouge-code"
       )
       table = formatter.format(lexer.lex(content))
-      name  = CGI.escapeHTML(File.basename(path))
+      name  = CGI.escapeHTML(display_name || File.basename(path))
 
       # 结构与 kramdown + rouge 的默认输出一致：
       # <div class="language-x highlighter-rouge">
@@ -184,8 +239,8 @@ module Jekyll
 
     # ---------- 预览 ----------
 
-    def previewable?
-      PREVIEW_EXTS.include?(File.extname(@path).downcase) && !@opts.key?("nopreview")
+    def previewable?(path = @path)
+      PREVIEW_EXTS.include?(File.extname(path).downcase) && !@opts.key?("nopreview")
     end
 
     def render_preview(context, site, code, full)
