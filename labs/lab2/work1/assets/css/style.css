@@ -1,0 +1,12 @@
+body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+ul {
+    display: inline-block;
+    text-align: left;
+    margin: 10px auto;
+    list-style-position: inside;
+}
