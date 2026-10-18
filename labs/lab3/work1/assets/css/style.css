@@ -1,0 +1,167 @@
+@charset "utf-8";
+
+@font-face {
+  font-family: "HYShangWeiShouShuW";
+  src: url("../fonts/hyswss.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: #fcfcfc;
+  background-image: url("../images/liyu.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: "楷体", "KaiTi", "宋体", SimSun, serif;
+  font-size: 16px;
+  color: #333333;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-image: url("../images/logo_1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 169px;
+  text-align: center;
+  line-height: 169px;
+}
+
+header h1 {
+  font-family: "HYShangWeiShouShuW", "楷体", "KaiTi", serif;
+  font-size: 48px;
+  font-weight: normal;
+  color: #5b2c1d;
+  letter-spacing: 6px;
+  margin: 0;
+}
+
+ul.nav {
+  list-style: none;
+  margin: 18px auto;
+  padding: 0;
+  text-align: center;
+  width: 728px;
+  overflow: hidden;
+}
+
+ul.nav li {
+  float: left;
+  width: 178px;
+  margin: 0;
+  padding: 10px 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+ul.nav li:nth-child(odd) {
+  background-color: #e8d8c0;
+  border: 1px solid #c9a86a;
+  border-radius: 6px 6px 0 0;
+}
+
+ul.nav li:nth-child(even) {
+  background-color: #d9b380;
+  border: 1px solid #b78a4e;
+  border-radius: 6px 6px 0 0;
+}
+
+ul.nav li a {
+  display: block;
+  text-decoration: none;
+  color: #333333;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+ul.nav li a:link {
+  color: #333333;
+}
+
+ul.nav li a:visited {
+  color: #6b4a2b;
+}
+
+ul.nav li a:hover {
+  color: #ffffff;
+  background-color: #8c5c2e;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+ul.nav li a:active {
+  color: #ffcc66;
+  background-color: #5b2c1d;
+}
+
+.intro {
+  width: 720px;
+  margin: 20px auto;
+  text-indent: 2em;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+h2 {
+  width: 720px;
+  margin: 24px auto 8px;
+  color: #5b2c1d;
+  border-left: 6px solid #c9a86a;
+  padding-left: 12px;
+  font-size: 24px;
+}
+
+ul.poem-list {
+  width: 720px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+ul.poem-list li {
+  background: url("../images/li_1.jpg") no-repeat left center;
+  background-color: #f7f0e3;
+  float: left;
+  box-sizing: border-box;
+  width: 220px;
+  margin: 6px;
+  padding: 8px 6px 8px 28px;
+  border: 1px solid #e0d0b4;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
+ul.poem-list li a {
+  color: #8c5c2e;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+ul.poem-list li a:link {
+  color: #8c5c2e;
+}
+
+ul.poem-list li a:visited {
+  color: #6b4a2b;
+}
+
+ul.poem-list li a:hover {
+  color: #c0392b;
+  text-decoration: underline;
+  background-color: #f0e2c8;
+}
+
+ul.poem-list li a:active {
+  color: #ff6600;
+}
+
+footer {
+  clear: both;
+  text-align: center;
+  color: #888888;
+  font-size: 14px;
+  padding: 24px 0 30px;
+}

@@ -1,0 +1,116 @@
+@charset "utf-8";
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  font-family: "宋体", SimSun, serif;
+  font-size: 16px;
+  color: #333333;
+}
+
+.banner {
+  text-align: center;
+  padding: 12px 0 8px;
+}
+
+h1 {
+  margin: 0;
+  padding: 12px 0;
+  background-color: #cfe0f3;
+  color: #17375e;
+  font-size: 22px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.page {
+  width: 960px;
+  margin: 0 auto;
+  padding: 6px 0 30px;
+}
+
+.meta {
+  text-align: right;
+  color: #888888;
+  font-size: 13px;
+  margin: 10px 0 16px;
+}
+
+.para {
+  line-height: 2;
+  text-indent: 2em;
+  margin: 8px 0;
+  text-align: justify;
+}
+
+.para strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  color: #1f5aa8;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 1em;
+  text-indent: 1em;
+  margin: 24px 0 10px;
+}
+
+table.glossary {
+  width: 60%;
+  min-width: 560px;
+  border-collapse: collapse;
+  margin: 10px auto 20px;
+  font-size: 15px;
+}
+
+table.glossary th,
+table.glossary td {
+  border: 1px solid #9dc3e6;
+  padding: 8px 14px;
+  text-align: center;
+}
+
+table.glossary th {
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
+}
+
+table.glossary tr:nth-child(even) td {
+  background-color: #ddebf7;
+}
+
+.related-title {
+  font-weight: bold;
+  margin: 10px 0 4px;
+}
+
+ul.related {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 10px;
+}
+
+ul.related li {
+  margin: 10px 0;
+}
+
+ul.related li::before {
+  content: "●";
+  color: #e36c09;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+ul.related li a {
+  color: #c00000;
+  text-decoration: none;
+}
+
+ul.related li a:hover {
+  text-decoration: underline;
+}

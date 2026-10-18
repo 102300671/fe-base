@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  font-family: "宋体", SimSun, serif;
+  font-size: 16px;
+  color: #333333;
+}
+
+.title-bar {
+  background-color: #2e8b57;
+  padding: 20px 6%;
+  text-align: right;
+}
+
+.title-bar h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 36px;
+  letter-spacing: 4px;
+}
+
+.intro-text {
+  width: 88%;
+  margin: 30px auto 10px;
+  text-indent: 2em;
+  font-size: 28px;
+  line-height: 1.5;
+  letter-spacing: 2px;
+  text-decoration: underline;
+  text-align: justify;
+}
+
+.gallery {
+  width: 88%;
+  margin: 20px auto 40px;
+  text-align: center;
+}
+
+.gallery img {
+  box-sizing: border-box;
+  width: 23%;
+  height: auto;
+  margin: 1% 0.8%;
+  border: 8px solid #2e7d52;
+  box-shadow: 6px 6px 0 #163d27;
+  vertical-align: middle;
+}
