@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+body {
+  margin: 0;
+  padding: 20px;
+  background-color: #f0f4f8;
+  font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  color: #333333;
+}
+
+.page {
+  width: 960px;
+  margin: 0 auto;
+}
+
+/* ===== 顶部：页眉左浮、导航右浮 ===== */
+.top {
+  overflow: hidden;
+}
+
+.header {
+  float: left;
+  width: 300px;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  background-color: #7fb3d5;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.nav {
+  float: right;
+  width: 640px;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  background-color: #f5b041;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* ===== 中部：边栏左浮、内容右浮 ===== */
+.middle {
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.sidebar {
+  float: left;
+  width: 300px;
+}
+
+.sidebar .aside {
+  height: 180px;
+  line-height: 180px;
+  text-align: center;
+  background-color: #a9dfbf;
+  color: #145a32;
+  margin-bottom: 10px;
+  border: 1px dashed #27ae60;
+}
+
+.main {
+  float: right;
+  width: 640px;
+}
+
+.main .article {
+  height: 180px;
+  line-height: 180px;
+  text-align: center;
+  background-color: #f9e79f;
+  color: #7d6608;
+  margin-bottom: 10px;
+  border: 1px dashed #d4ac0d;
+}
+
+/* ===== 页脚：清除浮动 ===== */
+.footer {
+  clear: both;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background-color: #85929e;
+  color: #ffffff;
+  font-weight: bold;
+  margin-top: 10px;
+}

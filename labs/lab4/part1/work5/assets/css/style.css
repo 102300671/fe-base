@@ -1,0 +1,82 @@
+@charset "utf-8";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f7fb;
+  font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+  color: #333333;
+}
+
+/* ===== 导航条：粘性定位 ===== */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: url("../../img/nav_blue.jpg") repeat-x top left;
+  background-color: #1f6fb2;
+  text-align: center;
+  padding: 10px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.topnav a {
+  display: inline-block;
+  padding: 8px 26px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.topnav a:hover {
+  color: #f0b429;
+}
+
+/* ===== 图片网格：三行五列 ===== */
+.grid {
+  width: 1200px;
+  margin: 20px auto 80px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.grid figure {
+  margin: 0;
+}
+
+.grid img {
+  display: block;
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+/* ===== 回到顶端：fixed 定位 + 竖排文字 ===== */
+.backtotop {
+  position: fixed;
+  right: 24px;
+  bottom: 90px;
+  z-index: 200;
+  padding: 14px 10px;
+  background-color: #1f6fb2;
+  border-radius: 8px;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  font-size: 15px;
+  letter-spacing: 6px;
+  writing-mode: vertical-rl;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.backtotop:hover {
+  background-color: #f0b429;
+  color: #1f6fb2;
+}

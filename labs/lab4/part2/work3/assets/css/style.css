@@ -1,0 +1,103 @@
+@charset "utf-8";
+
+body {
+  margin: 0;
+  padding: 40px 0;
+  background-color: #eaf7ee;
+  font-family: "微软雅黑", "Microsoft YaHei", "宋体", SimSun, sans-serif;
+  font-size: 16px;
+  color: #333333;
+}
+
+.card {
+  width: 560px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 14px;
+  border: 2px solid #7bc69a;
+  box-shadow: 0 4px 16px rgba(60, 140, 90, 0.18);
+  padding: 30px 40px 36px;
+}
+
+/* ===== 绿色标题栏 ===== */
+.head {
+  background-color: #2e8b57;
+  margin: -30px -40px 24px;
+  padding: 22px 40px;
+  border-radius: 12px 12px 0 0;
+}
+
+.head h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 28px;
+  letter-spacing: 4px;
+}
+
+.head p {
+  margin: 4px 0 0;
+  color: #cdeeda;
+  font-size: 14px;
+}
+
+/* ===== 表单字段 ===== */
+.field {
+  margin: 16px 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.field label {
+  width: 110px;
+  padding-top: 10px;
+  color: #2e6b46;
+  font-weight: bold;
+}
+
+.field input,
+.field textarea {
+  flex: 1;
+  border: 1px solid #a8d5b9;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-family: inherit;
+  background-color: #f4faf6;
+  color: #333333;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+/* 获得焦点后，背景改变颜色 */
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: #2e8b57;
+  background-color: #d9f2e3;
+  box-shadow: 0 0 6px rgba(46, 139, 87, 0.35);
+}
+
+/* ===== 按钮 ===== */
+.btns {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.btns input {
+  width: 120px;
+  height: 42px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2e8b57;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btns input:hover {
+  background-color: #236b43;
+}

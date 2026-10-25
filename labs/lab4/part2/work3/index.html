@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>留言信息</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="card">
+  <div class="head">
+    <h1>留言信息</h1>
+    <p>请留下你的信息.</p>
+  </div>
+
+  <form action="#" method="post">
+
+    <div class="field">
+      <label for="name">姓名：</label>
+      <input type="text" id="name" name="name" placeholder="请输入您的姓名">
+    </div>
+
+    <div class="field">
+      <label for="age">年龄：</label>
+      <input type="number" id="age" name="age" value="18" min="1" max="120">
+    </div>
+
+    <div class="field">
+      <label for="email">邮箱：</label>
+      <input type="email" id="email" name="email" placeholder="请输入邮箱地址">
+    </div>
+
+    <div class="field">
+      <label for="phone">电话号码：</label>
+      <input type="tel" id="phone" name="phone" placeholder="请输入电话号码" pattern="[0-9]{11}" title="请输入11位数字电话号码">
+    </div>
+
+    <div class="field">
+      <label for="address">联系地址：</label>
+      <input type="text" id="address" name="address" placeholder="请输入联系地址">
+    </div>
+
+    <div class="field">
+      <label for="message">留言：</label>
+      <textarea id="message" name="message" rows="4" placeholder="请输入你的建议"></textarea>
+    </div>
+
+    <div class="btns">
+      <input type="submit" value="提交">
+      <input type="reset" value="重置">
+    </div>
+
+  </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #dceefb;
+  font-family: "微软雅黑", "Microsoft YaHei", "宋体", SimSun, sans-serif;
+  font-size: 16px;
+  color: #333333;
+}
+
+.page {
+  width: 1000px;
+  margin: 30px auto;
+  padding: 30px 50px;
+  background-color: #f2f9ff;
+  border-radius: 12px;
+  border: 1px solid #bfddf3;
+  box-shadow: 0 3px 12px rgba(50, 130, 190, 0.15);
+}
+
+h1 {
+  text-align: center;
+  color: #1a6fb5;
+  font-size: 30px;
+  letter-spacing: 4px;
+  margin: 0 0 10px;
+}
+
+.hello {
+  margin: 0;
+  font-weight: bold;
+}
+
+.intro {
+  text-indent: 2em;
+  line-height: 1.9;
+  color: #444444;
+  border-left: 4px solid #7fb8e0;
+  padding: 6px 14px;
+  background-color: #e6f2fb;
+  border-radius: 4px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+.q {
+  margin: 18px 0 4px;
+  font-weight: bold;
+  color: #1a4a70;
+}
+
+.q .num {
+  color: #e67e22;
+}
+
+.opts {
+  margin: 6px 0 16px 2em;
+  line-height: 2;
+}
+
+.opts label {
+  margin-right: 18px;
+  color: #444444;
+  font-weight: normal;
+}
+
+input[type="text"],
+select,
+textarea {
+  border: 1px solid #9bc4e4;
+  border-radius: 5px;
+  padding: 7px 10px;
+  font-size: 15px;
+  font-family: inherit;
+  background-color: #ffffff;
+}
+
+textarea {
+  width: 96%;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #1a6fb5;
+  box-shadow: 0 0 5px rgba(26, 111, 181, 0.35);
+}
+
+.btns {
+  text-align: center;
+  margin-top: 26px;
+}
+
+.btns input {
+  width: 130px;
+  height: 42px;
+  margin: 0 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1a6fb5;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btns input:hover {
+  background-color: #155a94;
+}
+
+.copyright {
+  text-align: center;
+  color: #7f8c9b;
+  font-size: 13px;
+  margin-top: 28px;
+}

@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+body {
+  margin: 0;
+  padding: 30px;
+  background-color: #f7f9fc;
+  font-family: "微软雅黑", "Microsoft YaHei", "宋体", SimSun, sans-serif;
+  font-size: 15px;
+  color: #333333;
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 4px;
+  color: #2c3e50;
+  letter-spacing: 6px;
+}
+
+.semester {
+  color: #7f8c8d;
+  margin: 0 0 24px;
+  font-size: 14px;
+}
+
+/* ===== 单线表格 ===== */
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 960px;
+}
+
+th,
+td {
+  border: 1px solid #666666;
+  padding: 12px 8px;
+  text-align: center;
+  min-width: 96px;
+}
+
+th {
+  background-color: #34495e;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* ===== 应用结构性伪类 nth-child 设置不同行显示 ===== */
+tbody tr:nth-child(odd) td {
+  background-color: #ecf0f1;
+}
+
+tbody tr:nth-child(even) td {
+  background-color: #ffffff;
+}
+
+/* ===== 光标悬停单元格变深色 ===== */
+td:hover {
+  background-color: #2c3e50 !important;
+  color: #ffffff;
+}

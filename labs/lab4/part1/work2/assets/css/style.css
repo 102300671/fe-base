@@ -1,0 +1,165 @@
+@charset "utf-8";
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #eef4fb;
+  font-family: "微软雅黑", "Microsoft YaHei", "宋体", SimSun, sans-serif;
+  font-size: 15px;
+  color: #333333;
+}
+
+/* ===== 顶部 banner ===== */
+.banner {
+  width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.banner img {
+  display: block;
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+}
+
+/* ===== 导航：a 为行内标记，用 display:inline-block 转为行内块并设置宽度 ===== */
+ul.nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: #1f5f8b;
+  text-align: center;
+}
+
+ul.nav li {
+  display: inline-block;
+  margin: 0;
+}
+
+ul.nav li a {
+  display: inline-block;
+  width: 150px;
+  padding: 12px 0;
+  background-color: #1f5f8b;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+ul.nav li a:hover {
+  background-color: #2e86c1;
+  color: #ffffff;
+}
+
+/* ===== 主体两栏：左浮 + 右浮 ===== */
+.container {
+  width: 1000px;
+  margin: 20px auto;
+  overflow: hidden;
+  background-color: #ffffff;
+  border: 1px solid #d6e4f0;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.left {
+  float: left;
+  width: 340px;
+}
+
+.right {
+  float: right;
+  width: 620px;
+}
+
+/* ===== 左侧菜单 ===== */
+.left h2 {
+  color: #1f5f8b;
+  border-bottom: 2px solid #2e86c1;
+  padding-bottom: 6px;
+}
+
+.menu-head {
+  font-size: 14px;
+  color: #555555;
+  line-height: 1.6;
+}
+
+table.price {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+table.price th,
+table.price td {
+  border: 1px solid #bcd7ee;
+  padding: 8px 4px;
+  text-align: center;
+  font-size: 13px;
+}
+
+table.price th {
+  background-color: #2e86c1;
+  color: #ffffff;
+}
+
+table.price tr:nth-child(even) td {
+  background-color: #eef5fb;
+}
+
+/* ===== 右侧介绍：左图右文 ===== */
+.right .item {
+  overflow: hidden;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px dashed #bcd7ee;
+}
+
+.right .item:last-child {
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+
+.right .item img {
+  float: left;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin: 0 18px 6px 0;
+  padding: 3px;
+  border: 3px dashed #2e86c1;
+  border-radius: 6px;
+}
+
+.right .desc {
+  overflow: hidden;
+}
+
+.right h3 {
+  color: #1f5f8b;
+  border-left: 5px solid #f0b429;
+  padding-left: 10px;
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.right p {
+  line-height: 1.8;
+  color: #444444;
+  text-align: justify;
+  margin: 0;
+}
+
+/* ===== 页脚 ===== */
+footer {
+  text-align: center;
+  color: #666666;
+  background-color: #d6e4f0;
+  padding: 14px 0;
+  font-size: 14px;
+}
