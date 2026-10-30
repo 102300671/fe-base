@@ -1,0 +1,151 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+  color: #333333;
+}
+
+.topnav {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 1090px;
+  padding-right: 50px;
+  margin: 0 auto;
+}
+
+.topnav a {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 17px;
+  letter-spacing: 2px;
+  color: #333333;
+  text-decoration: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)),
+    var(--nav-img);
+  background-size: cover;
+  background-position: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.topnav a:last-child {
+  border-right: 0;
+}
+
+.nav-home {
+  --nav-img: url("../../img/t13.jpg");
+}
+
+.nav-tang {
+  --nav-img: url("../../img/t18.jpg");
+}
+
+.nav-song {
+  --nav-img: url("../../img/t14.jpg");
+}
+
+.nav-tangwd {
+  --nav-img: url("../../img/t15.jpg");
+}
+
+.nav-songs {
+  --nav-img: url("../../img/t16.jpg");
+}
+
+.topnav a:hover {
+  color: #1f6fb2;
+}
+
+.wall {
+  width: 100%;
+  max-width: 1090px;
+  padding-right: 50px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wall figure {
+  flex: 0 0 20%;
+  margin: 0;
+  line-height: 0;
+  outline: 1px solid rgba(90, 170, 215, 0.55);
+  outline-offset: -1px;
+}
+
+.wall img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 218 / 150;
+  object-fit: cover;
+}
+
+.backtotop {
+  position: fixed;
+  top: 50%;
+  right: 18px;
+  z-index: 10;
+  transform: translateY(-50%);
+  padding: 12px 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #1295d3;
+  border-radius: 6px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+.backtotop:hover {
+  background-color: #0d78ad;
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .wall figure {
+    flex-basis: 33.3333%;
+  }
+}
+
+@media (max-width: 480px) {
+  .topnav a {
+    height: 62px;
+    font-size: 13px;
+    letter-spacing: 0;
+  }
+
+  .wall figure {
+    flex-basis: 50%;
+  }
+
+  .backtotop {
+    right: 8px;
+    padding: 10px 7px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .topnav a {
+    font-size: 12px;
+  }
+}
