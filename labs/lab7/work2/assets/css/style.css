@@ -1,0 +1,116 @@
+@charset "utf-8";
+
+@font-face {
+  font-family: "HYWeiBeiJ";
+  src: url("../../img/hywbJ.ttf") format("truetype");
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+}
+
+.banner {
+  position: relative;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: #20303a;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: frame-switch 20s linear infinite;
+}
+
+.slide-1 {
+  background-image: url("../../img/top1.png");
+  animation-delay: 0s;
+}
+
+.slide-2 {
+  background-image: url("../../img/top2.png");
+  animation-delay: 5s;
+}
+
+.slide-3 {
+  background-image: url("../../img/top3.png");
+  animation-delay: 10s;
+}
+
+.slide-4 {
+  background-image: url("../../img/top4.png");
+  animation-delay: 15s;
+}
+
+@keyframes frame-switch {
+  0% {
+    opacity: 1;
+  }
+
+  24.9% {
+    opacity: 1;
+  }
+
+  25%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.banner-text {
+  position: absolute;
+  left: 8%;
+  bottom: 14%;
+  padding: 18px 26px;
+  background-color: rgba(255, 255, 255, 0.72);
+  border-left: 6px solid #8a5a2b;
+}
+
+.banner-text h1 {
+  margin: 0 0 6px;
+  font-family: "HYWeiBeiJ", "楷体", serif;
+  font-size: 56px;
+  font-weight: normal;
+  letter-spacing: 8px;
+  color: #3b2a1a;
+}
+
+.banner-text p {
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: 4px;
+  color: #6b563f;
+}
+
+@media (max-width: 640px) {
+  .banner-text {
+    left: 6%;
+    bottom: 10%;
+    padding: 12px 16px;
+  }
+
+  .banner-text h1 {
+    font-size: 34px;
+    letter-spacing: 4px;
+  }
+
+  .banner-text p {
+    font-size: 12px;
+  }
+}

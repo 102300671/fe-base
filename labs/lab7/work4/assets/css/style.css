@@ -1,0 +1,62 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 30px 40px;
+  background-color: #ffffff;
+  font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+  color: #222222;
+}
+
+.page {
+  max-width: 720px;
+}
+
+.page h1 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.sizes {
+  margin: 0 0 14px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.sizes a {
+  margin: 0 10px;
+  color: #4a4a4a;
+  text-decoration: none;
+}
+
+.sizes a:hover {
+  color: #16486d;
+  text-decoration: underline;
+}
+
+.poem {
+  padding: 18px 22px;
+  background-color: #add9e6;
+  color: #16486d;
+  font-size: 18px;
+  line-height: 1.9;
+  letter-spacing: 1px;
+}
+
+.poem.size-small {
+  font-size: 14px;
+}
+
+.poem.size-middle {
+  font-size: 18px;
+}
+
+.poem.size-large {
+  font-size: 24px;
+}

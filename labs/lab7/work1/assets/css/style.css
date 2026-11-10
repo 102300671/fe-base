@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+}
+
+.coffee-list {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+}
+
+.coffee {
+  position: relative;
+  width: 280px;
+  height: 310px;
+  margin: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.coffee img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.caption {
+  position: absolute;
+  inset: 0;
+  padding: 22px 20px;
+  background-color: rgba(0, 0, 0, 0.62);
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.caption h2 {
+  margin: 0 0 12px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffc107;
+}
+
+.caption p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.coffee:hover .caption {
+  opacity: 1;
+}
