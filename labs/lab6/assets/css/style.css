@@ -1,0 +1,16 @@
+body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+}
+
+a {
+    line-height: 2.2;
+    color: #1f6fb5;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #e67e22;
+}

@@ -1,0 +1,170 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f1f1f1;
+  font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+  color: #333333;
+}
+
+/* ===== 整体：4 列 2 行网格，首图跨两列 ===== */
+.layout {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "img1  img1  img2 img3"
+    "img4  img5  img6 img7";
+  gap: 10px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.card-1 { grid-area: img1; }
+.card-2 { grid-area: img2; }
+.card-3 { grid-area: img3; }
+.card-4 { grid-area: img4; }
+.card-5 { grid-area: img5; }
+.card-6 { grid-area: img6; }
+.card-7 { grid-area: img7; }
+
+/* ===== 卡片：白底，图片在上，标题在中，来源贴底 ===== */
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 8px 10px 4px;
+}
+
+.card-cat {
+  margin: 0 0 3px;
+  font-size: 11px;
+  line-height: 1;
+  color: #4a90d9;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #222222;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-source {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  padding: 8px 10px 10px;
+  font-size: 11px;
+  color: #9a9a9a;
+}
+
+.card-dot {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #b9d3ec;
+  border-radius: 50%;
+  background-color: #4a90d9;
+  flex: 0 0 auto;
+}
+
+/* ===== 首图：整块作为广告位，文字压在图片底部 ===== */
+.card-banner {
+  position: relative;
+  background-color: #333333;
+}
+
+.card-banner .card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.card-overlay {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  min-height: 160px;
+  padding: 14px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.65));
+}
+
+.card-overlay-title {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+.card-overlay-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 11px;
+  color: #e6e6e6;
+}
+
+.card-ad {
+  padding: 1px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  font-size: 10px;
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .layout {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "img1  img1"
+      "img2  img3"
+      "img4  img5"
+      "img6  img7";
+  }
+
+  .card-overlay {
+    min-height: 120px;
+    padding: 10px;
+  }
+
+  .card-overlay-title {
+    font-size: 14px;
+  }
+}

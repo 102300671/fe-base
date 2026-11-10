@@ -1,0 +1,72 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+}
+
+/* ===== 默认：小屏（<992px），中间只显示一列 ===== */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+  height: 100dvh;
+  padding: 8px;
+  background-color: #ffffff;
+}
+
+.header,
+.footer {
+  flex: 0 0 13%;
+  background-color: #ffa400;
+}
+
+.main {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  min-height: 0;
+}
+
+.col {
+  background-color: #cccccc;
+}
+
+.col-2,
+.col-3 {
+  display: none;
+}
+
+/* ===== 中屏（>=992px）：左右两列 ===== */
+@media (min-width: 992px) {
+  .main {
+    grid-template-columns: 1fr 2.7fr;
+  }
+
+  .col-2 {
+    display: block;
+  }
+}
+
+/* ===== 大屏（>=1200px）：左中右三列 ===== */
+@media (min-width: 1200px) {
+  .main {
+    grid-template-columns: 1fr 2.75fr 1fr;
+  }
+
+  .col-3 {
+    display: block;
+  }
+}

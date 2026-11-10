@@ -1,0 +1,99 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #ffffff;
+  font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+  color: #222222;
+}
+
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+/* ===== 大屏（>=900px）：左右两栏 + 中间三块横排 ===== */
+.wrap {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid #333333;
+}
+
+.related,
+.backend {
+  flex: 0 0 20%;
+  padding: 18px 20px;
+}
+
+.related {
+  border-right: 1px solid #333333;
+}
+
+.backend {
+  border-left: 1px solid #333333;
+}
+
+.related h2,
+.backend h2 {
+  margin-bottom: 6px;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.related p,
+.backend p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.cards {
+  flex: 1 1 auto;
+  display: flex;
+  gap: 30px;
+  padding: 16px;
+}
+
+.card {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 18px 20px;
+  background-color: #eeeeee;
+}
+
+.card h3 {
+  margin-bottom: 6px;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.card p {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ===== 中屏（<900px 且 >=760px）：中间三块改为竖排 ===== */
+@media (max-width: 899px) {
+  .cards {
+    flex-direction: column;
+    gap: 4px;
+    padding: 3px 0;
+  }
+}
+
+/* ===== 小屏（<760px）：隐藏左右两栏，只保留内容区 ===== */
+@media (max-width: 759px) {
+  .related,
+  .backend {
+    display: none;
+  }
+}
